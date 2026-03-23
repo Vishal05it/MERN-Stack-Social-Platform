@@ -1,0 +1,24 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+.input {
+  @apply w-full px-4 py-3 rounded-xl bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none;
+}
+html {
+  scroll-behavior: smooth;
+}
+@keyframes showBar {
+  0% {
+    right: -100%;
+  }
+  100% {
+    right: 0;
+  }
+}
+@keyframes hideBar {
+  0% {
+    right: 0%;
+  }
+  100% {
+    right: -100%;
+  }
+}
