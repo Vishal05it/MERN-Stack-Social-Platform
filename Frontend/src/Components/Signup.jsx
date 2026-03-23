@@ -37,6 +37,10 @@ function Signup() {
         errorEmitter("Password must be at least 8 characters long");
         return;
       }
+      if (!user.name || !user.email) {
+        errorEmitter("Name and Email are required!");
+        return;
+      }
       setShowLoader(true);
       let sendData = await fetch(`http://localhost:5000/user/api/signup`, {
         method: "POST",
@@ -106,6 +110,7 @@ function Signup() {
           <input
             type="text"
             name="name"
+            required
             value={user.name}
             onChange={onChangeFunc}
             placeholder="Full Name"
@@ -124,6 +129,7 @@ function Signup() {
           <input
             type="email"
             name="email"
+            required
             value={user.email}
             onChange={onChangeFunc}
             placeholder="Email"
@@ -133,6 +139,7 @@ function Signup() {
           <input
             type="password"
             name="password"
+            required
             value={user.password}
             onChange={onChangeFunc}
             placeholder="Password"
