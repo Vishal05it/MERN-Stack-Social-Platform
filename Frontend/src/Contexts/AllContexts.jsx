@@ -504,29 +504,31 @@ function AllContexts({ children }) {
     }
   };
   let getNotifications = async () => {
-    try {
-      let response = await fetch(
-        `${baseURL}/notification/api/gettotalnotifications/${user._id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            userToken,
+    if (user) {
+      try {
+        let response = await fetch(
+          `${baseURL}/notification/api/gettotalnotifications/${user._id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              userToken,
+            },
           },
-        },
-      );
-      let data = await response.json();
-      // console.log(data);
-      if (data.success) {
-        // successEmitter(data.message);
-        // console.log("All notifications is actually : ", allNotifications);
-        setAllNotifications([...data.allNotifications]);
-        setAllNotifications(data.totalNotifications);
-        localStorage.setItem("totalNot", Number(data.totalNotifications));
-        localStorage.setItem("actualNot", data.showNotifications);
+        );
+        let data = await response.json();
+        // console.log(data);
+        if (data.success) {
+          // successEmitter(data.message);
+          // console.log("All notifications is actually : ", allNotifications);
+          setAllNotifications([...data.allNotifications]);
+          setAllNotifications(data.totalNotifications);
+          localStorage.setItem("totalNot", Number(data.totalNotifications));
+          localStorage.setItem("actualNot", data.showNotifications);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
   let getAllNotifications = async () => {
