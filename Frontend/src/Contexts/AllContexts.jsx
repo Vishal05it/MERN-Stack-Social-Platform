@@ -507,7 +507,7 @@ function AllContexts({ children }) {
     if (user) {
       try {
         let response = await fetch(
-          `${baseURL}/notification/api/gettotalnotifications/${user._id}`,
+          `${baseURL}/notification/api/gettotalnotifications/${user?._id}`,
           {
             method: "GET",
             headers: {
@@ -535,7 +535,7 @@ function AllContexts({ children }) {
     if (user) {
       try {
         let response = await fetch(
-          `${baseURL}/notification/api/getallnotifications/${user._id}`,
+          `${baseURL}/notification/api/getallnotifications/${user?._id}`,
           {
             method: "GET",
             headers: {
@@ -566,7 +566,7 @@ function AllContexts({ children }) {
     if (user) {
       try {
         let response = await fetch(
-          `${baseURL}/notification/api/countnotifications/${user._id}`,
+          `${baseURL}/notification/api/countnotifications/${user?._id}`,
           {
             method: "GET",
             headers: {
@@ -606,7 +606,7 @@ function AllContexts({ children }) {
   let getUnreadMessages = async () => {
     try {
       let response = await fetch(
-        `${baseURL}/message/api/countunreadforuser/${user._id}`,
+        `${baseURL}/message/api/countunreadforuser/${user?._id}`,
         {
           method: "GET",
           headers: {
