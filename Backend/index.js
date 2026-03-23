@@ -13,7 +13,7 @@ const messageRouter = require("./Router/message.router");
 const conversationRouter = require("./Router/conversation.router");
 const PORT = process.env.PORT || 5000;
 app.use(cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 }))
