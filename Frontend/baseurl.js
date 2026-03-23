@@ -1,2 +1,2 @@
-export const baseURL = `https://mern-stack-social-platform.onrender.com`;
+export const baseURL = import.meta.env.VITE_BASE_URL;
 
