@@ -13,7 +13,7 @@ const messageRouter = require("./Router/message.router");
 const conversationRouter = require("./Router/conversation.router");
 const PORT = process.env.PORT || 5000;
 app.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: "https://mern-stack-social-platform-qxs481slk-vishal05its-projects.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 }))
