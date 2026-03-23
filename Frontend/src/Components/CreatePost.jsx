@@ -9,7 +9,7 @@ function CreatePost() {
   let [postImg, setPostImg] = useState("");
   let { showLoader, setShowLoader } = useLoader();
   const navigate = useNavigate();
-  let { user, setIsHome, setShowFooter } = useAllContexts();
+  let { user, setIsHome, setShowFooter, isLogin } = useAllContexts();
   let [post, setPost] = useState({
     title: "",
     description: "",
@@ -133,7 +133,17 @@ function CreatePost() {
 
             {/* BUTTON */}
             <button
-              onClick={() => addPost()}
+              onClick={async () => {
+                if (!isLogin) {
+                  errorEmitter("Login first to add a post");
+                  return;
+                }
+                if (!post.title || !post.description) {
+                  errorEmitter("Title or Description cannot be empty");
+                  return;
+                }
+                await addPost();
+              }}
               className="w-full py-3 rounded-xl bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition shadow"
             >
               Create Post 🚀
