@@ -83,11 +83,11 @@ function Signup() {
     }
   };
   return (
-    <section className="min-h-screen flex items-center justify-center py-20 bg-gray-50 dark:bg-gray-900 px-4">
-      <div className="w-full max-w-lg bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 p-6 space-y-6">
+    <section className="min-h-screen flex items-center justify-center py-10 bg-gray-50 dark:bg-gray-900 px-3 sm:px-4">
+      <div className="w-full max-w-lg bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 p-4 sm:p-6 space-y-6">
         {/* HEADER */}
-        <div className="text-center">
-          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+        <div className="text-center space-y-1">
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-100">
             Create Account
           </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -101,7 +101,7 @@ function Signup() {
             e.preventDefault();
             signUpFunction();
           }}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4"
         >
           <input
             type="text"
@@ -205,7 +205,7 @@ function Signup() {
           />
 
           {/* BUTTON */}
-          <button className="col-span-2 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition">
+          <button className="col-span-1 sm:col-span-2 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition">
             Create Account
           </button>
         </form>
