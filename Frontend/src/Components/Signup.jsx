@@ -37,7 +37,7 @@ function Signup() {
         errorEmitter("Password must be at least 8 characters long");
         return;
       }
-      if (!user.name || !user.email) {
+      if (user.name.length < 2 || !user.email) {
         errorEmitter("Name and Email are required!");
         return;
       }
