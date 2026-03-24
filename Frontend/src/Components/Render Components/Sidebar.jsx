@@ -55,6 +55,7 @@ function Sidebar() {
           </div>
 
           <button
+            style={{ cursor: "pointer" }}
             onClick={() => setSideBarAnim(`hideBar`)}
             className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition text-red-500"
           >
@@ -124,6 +125,7 @@ function Sidebar() {
           </NavLink>
           <div className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition text-gray-700 dark:text-gray-300 cursor-pointer">
             <span
+              style={{ cursor: "pointer" }}
               onClick={async (e) => {
                 e.preventDefault();
                 if (!searchPostState) {
@@ -151,6 +153,7 @@ function Sidebar() {
           </div>
           <div className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition text-gray-700 dark:text-gray-300 cursor-pointer">
             <span
+              style={{ cursor: "pointer" }}
               onClick={async () => {
                 if (!searchUserState) {
                   errorEmitter("Please enter a valid input");

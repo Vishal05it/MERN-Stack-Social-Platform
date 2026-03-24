@@ -69,27 +69,7 @@ function Navbar() {
     };
     fetchReq();
   }, []);
-  // useEffect(() => {
-  //   if (theme == "light") {
-  //     iconRef?.current?.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun-icon lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`;
-  //   } else if (theme == "dark") {
-  //     iconRef?.current?.innerHTML = ` <svg
-  //           xmlns="http://www.w3.org/2000/svg"
-  //           width="24"
-  //           height="24"
-  //           viewBox="0 0 24 24"
-  //           style={{ position: "absolute", top: "40%", right: "30%" }}
-  //           fill="none"
-  //           stroke="currentColor"
-  //           stroke-width="2"
-  //           stroke-linecap="round"
-  //           stroke-linejoin="round"
-  //           className="lucide lucide-moon-star-icon lucide-moon-star"><path d="M18 5h4" />
-  //           <path d="M20 3v4" />
-  //           <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
-  //         </svg>`;
-  //   }
-  // }, [theme]);
+
   let { userToken, setUserToken, isHome, setIsHome } = useAllContexts();
   return (
     <>
@@ -157,6 +137,7 @@ function Navbar() {
                 className="w-full pl-10 pr-4 py-2 rounded-xl bg-gray-100 dark:bg-gray-700 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
               <button
+                style={{ cursor: "pointer" }}
                 onClick={async (e) => {
                   e.preventDefault();
                   if (!searchPostState) {
@@ -181,6 +162,7 @@ function Navbar() {
               <>
                 <div className="hidden lg:flex items-center gap-2 bg-gray-100 dark:bg-gray-700 px-3 py-2 rounded-xl">
                   <UserSearch
+                    style={{ cursor: "pointer" }}
                     onClick={async () => {
                       if (!searchUserState) {
                         errorEmitter("Please enter a valid input");
@@ -239,6 +221,7 @@ function Navbar() {
 
             {/* Theme Toggle */}
             <button
+              style={{ cursor: "pointer" }}
               onClick={toggleTheme}
               ref={iconRef}
               className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition text-gray-700 dark:text-gray-300"
@@ -255,7 +238,10 @@ function Navbar() {
                 </button>
 
                 {showMyPosts && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-2 z-50">
+                  <div
+                    style={{ cursor: "pointer" }}
+                    className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-2 z-50"
+                  >
                     <MyPosts userId={user._id} />
                   </div>
                 )}
