@@ -112,7 +112,8 @@ function Home() {
                 position: "fixed",
                 bottom: "5%",
                 right: "4%",
-                size: "18px",
+                size: "30px",
+                cursor: "pointer",
               }}
               onClick={() => {
                 document
