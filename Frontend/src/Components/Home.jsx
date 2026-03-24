@@ -107,8 +107,13 @@ function Home() {
               </button>
             </div>
             <div
-              className="dark:bg-indigo-600 dark:text-white rounded-full"
-              style={{ position: "fixed", bottom: "5%", right: "4%" }}
+              className=" dark:text-white"
+              style={{
+                position: "fixed",
+                bottom: "5%",
+                right: "4%",
+                size: "18px",
+              }}
               onClick={() => {
                 document
                   .querySelector("#topSect")
