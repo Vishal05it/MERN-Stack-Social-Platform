@@ -626,30 +626,32 @@ function AllContexts({ children }) {
     }
   };
   let sendMessage = async (messageto, message) => {
-    try {
-      let response = await fetch(
-        `${baseURL}/message/api/sendmessage/${user?._id}/${messageto}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            userToken,
+    if (message) {
+      try {
+        let response = await fetch(
+          `${baseURL}/message/api/sendmessage/${user?._id}/${messageto}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              userToken,
+            },
+            body: JSON.stringify({
+              message,
+              addedMs: Date.now(),
+            }),
           },
-          body: JSON.stringify({
-            message,
-            addedMs: Date.now(),
-          }),
-        },
-      );
-      let sentMsgData = await response.json();
-      if (sentMsgData.success) {
-        // successEmitter(sentMsgData.message);
-        await getAllMessages(messageto);
-      } else errorEmitter(sentMsgData.message);
-      //console.log(sentMsgData);
-    } catch (error) {
-      console.log(error);
-    }
+        );
+        let sentMsgData = await response.json();
+        if (sentMsgData.success) {
+          // successEmitter(sentMsgData.message);
+          await getAllMessages(messageto);
+        } else errorEmitter(sentMsgData.message);
+        //console.log(sentMsgData);
+      } catch (error) {
+        console.log(error);
+      }
+    } else errorEmitter("Cannot send empty message");
   };
   let getAllMessages = async (messageto) => {
     try {
@@ -759,28 +761,30 @@ function AllContexts({ children }) {
     }
   };
   let editMessage = async (messageId, newMessage) => {
-    try {
-      let response = await fetch(
-        `${baseURL}/message/api/editmessage/${messageId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            userToken,
+    if (newMessage) {
+      try {
+        let response = await fetch(
+          `${baseURL}/message/api/editmessage/${messageId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              userToken,
+            },
+            body: JSON.stringify({
+              newMessage,
+            }),
           },
-          body: JSON.stringify({
-            newMessage,
-          }),
-        },
-      );
-      let editMsgData = await response.json();
-      if (editMsgData.success) {
-        // successEmitter(editMsgData.message);
-      } else errorEmitter(editMsgData.message);
-      //console.log(editMsgData);
-    } catch (error) {
-      console.log(error);
-    }
+        );
+        let editMsgData = await response.json();
+        if (editMsgData.success) {
+          // successEmitter(editMsgData.message);
+        } else errorEmitter(editMsgData.message);
+        //console.log(editMsgData);
+      } catch (error) {
+        console.log(error);
+      }
+    } else errorEmitter("Cannot send empty message");
   };
   let deleteMessage = async (messageId) => {
     try {
