@@ -43,6 +43,8 @@ function Navbar() {
     showMyPosts,
     setShowMyPosts,
   } = useAllContexts();
+  let searchPostRef = useRef();
+  let searchUserRef = useRef();
   const navigate = useNavigate();
   let { showBtnLoader, setShowBtnLoader } = useLoader();
   let iconRef = useRef();
@@ -148,6 +150,7 @@ function Navbar() {
             <div className="relative w-full">
               <input
                 type="search"
+                ref={searchPostRef}
                 value={searchPostState}
                 onChange={(e) => setSearchPostState(e.target.value)}
                 placeholder="Search posts..."
@@ -162,6 +165,7 @@ function Navbar() {
                   }
                   await searchPost(searchPostState);
                   setSearchPostState("");
+                  searchPostRef.current.value = "";
                 }}
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
               >
@@ -183,6 +187,7 @@ function Navbar() {
                       }
                       await searchUser(searchUserState);
                       setSearchUserState("");
+                      searchUserRef.current.value = "";
                       navigate(`/searchuser/${searchUserState}`);
                     }}
                     size={16}
@@ -190,6 +195,7 @@ function Navbar() {
                   />
                   <input
                     type="text"
+                    ref={searchUserRef}
                     value={searchUserState}
                     onChange={(e) => setSearchUserState(e.target.value)}
                     placeholder="Search users..."
