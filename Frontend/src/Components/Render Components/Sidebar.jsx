@@ -133,6 +133,7 @@ function Sidebar() {
                 await searchPost(searchPostState);
                 setSearchPostState("");
                 searchPostRef.current.value = "";
+                navigate("/");
               }}
             >
               ❔
