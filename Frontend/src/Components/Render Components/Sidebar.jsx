@@ -130,10 +130,10 @@ function Sidebar() {
                   errorEmitter("Please enter avalid input");
                   return;
                 }
+                navigate("/");
                 await searchPost(searchPostState);
                 setSearchPostState("");
                 searchPostRef.current.value = "";
-                navigate("/");
               }}
             >
               ❔
