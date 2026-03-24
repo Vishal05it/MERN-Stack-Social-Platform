@@ -71,9 +71,27 @@ function Footer() {
               Connect
             </h3>
             <div className="flex gap-3 text-gray-500 dark:text-gray-400">
-              <span className="hover:text-indigo-600 cursor-pointer">🌐</span>
-              <span className="hover:text-indigo-600 cursor-pointer">💼</span>
-              <span className="hover:text-indigo-600 cursor-pointer">🐦</span>
+              <a
+                href="https://my-portfolio-7ffo.vercel.app/"
+                target="_blank"
+                className="hover:text-indigo-600 cursor-pointer"
+              >
+                🌐
+              </a>
+              <a
+                target="_blank"
+                href="https://www.linkedin.com/in/vishal-tiwari-17684822a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                className="hover:text-indigo-600 cursor-pointer"
+              >
+                💼
+              </a>
+              <a
+                target="_blank"
+                href="https://github.com/Vishal05it"
+                className="hover:text-indigo-600 cursor-pointer"
+              >
+                😼
+              </a>
             </div>
           </div>
         </div>
