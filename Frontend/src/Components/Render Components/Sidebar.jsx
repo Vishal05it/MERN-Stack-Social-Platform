@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import userImg from "../../assets/user-circles-set_78370-4704-removebg-preview.png";
 import { useAllContexts } from "../../Contexts/AllContexts";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -26,6 +26,8 @@ function Sidebar() {
   } = useAllContexts();
   let [searchPostState, setSearchPostState] = useState("");
   let [searchUserState, setSearchUserState] = useState("");
+  let searchPostRef = useRef();
+  let searchUserRef = useRef();
   const navigate = useNavigate();
   return (
     <>
@@ -129,6 +131,8 @@ function Sidebar() {
                   return;
                 }
                 await searchPost(searchPostState);
+                setSearchPostState("");
+                searchPostRef.current.value = "";
               }}
             >
               ❔
@@ -136,6 +140,7 @@ function Sidebar() {
             <span>
               <input
                 type="text"
+                ref={searchPostRef}
                 className="dark:text-gray-50 dark:border-gray-100 light:text-gray-800 light:border-gray-800 p-1"
                 value={searchPostState}
                 onChange={(e) => setSearchPostState(e.target.value)}
@@ -151,6 +156,8 @@ function Sidebar() {
                   return;
                 }
                 await searchUser(searchUserState);
+                setSearchUserState("");
+                searchUserRef.current.value = "";
                 navigate(`/searchuser/${searchUserState}`);
               }}
             >
@@ -159,6 +166,7 @@ function Sidebar() {
             <span>
               <input
                 type="text"
+                ref={searchUserRef}
                 className="dark:text-gray-50 dark:border-gray-100 light:text-gray-800 light:border-gray-800 p-1"
                 value={searchUserState}
                 onChange={(e) => setSearchUserState(e.target.value)}
