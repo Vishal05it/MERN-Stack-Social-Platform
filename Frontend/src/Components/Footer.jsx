@@ -25,7 +25,15 @@ function Footer() {
             </h3>
             <ul className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
               <li className="hover:text-indigo-600 cursor-pointer">
-                <NavLink to="/">Home</NavLink>
+                <NavLink
+                  to="/"
+                  onClick={() => {
+                    let topSect = document.querySelector("#topSect");
+                    topSect?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  Home
+                </NavLink>
               </li>
               <li className="hover:text-indigo-600 cursor-pointer">
                 <NavLink to="/createpost"> Create Post</NavLink>
