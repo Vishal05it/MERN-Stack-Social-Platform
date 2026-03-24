@@ -53,7 +53,7 @@ function Home() {
   return (
     <>
       {allPosts?.length > 0 ? (
-        <section className="py-8 sm:py-12 bg-gray-50 dark:bg-gray-800 min-h-screen">
+        <section className="py-8 sm:py-12 bg-gray-50 dark:bg-gray-800 min-h-screen relative">
           <div
             id="topSect"
             className="max-w-7xl mx-auto px-4 space-y-10 relative"
@@ -106,23 +106,23 @@ function Home() {
                 Next
               </button>
             </div>
-            <div
-              className=" dark:text-white"
-              size={20}
-              style={{
-                position: "fixed",
-                bottom: "5%",
-                right: "4%",
-                cursor: "pointer",
-              }}
-              onClick={() => {
-                document
-                  .querySelector("#topSect")
-                  .scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              <CircleArrowUp />
-            </div>
+          </div>
+          <div
+            className=" dark:text-white"
+            size={30}
+            style={{
+              position: "fixed",
+              bottom: "5%",
+              right: "4%",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              document
+                .querySelector("#topSect")
+                .scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            <CircleArrowUp />
           </div>
         </section>
       ) : (
