@@ -6,6 +6,7 @@ import { baseURL } from "../../baseurl";
 import { useLoader } from "../Contexts/LoaderState";
 import Blog from "./Render Components/Blog";
 import NoPost from "./NoPost";
+import NoProfile from "./NoProfile";
 function ProfilePage() {
   let param = useParams();
   let {
@@ -18,6 +19,7 @@ function ProfilePage() {
     allPosts,
     setIsHome,
     setShowFooter,
+    isLogin,
   } = useAllContexts();
   let { setShowLoader } = useLoader();
   useEffect(() => {
@@ -34,43 +36,48 @@ function ProfilePage() {
     <>
       <>
         {/* PROFILE HEADER */}
-        <section className="bg-gray-50 dark:bg-gray-900 py-10">
-          <div className="max-w-5xl mx-auto px-4">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-md p-6 flex flex-col sm:flex-row items-center gap-6">
-              {/* PROFILE PIC */}
-              <img
-                src={user?.profilepic}
-                className="w-24 h-24 rounded-full object-cover border-2 border-indigo-500"
-              />
+        {isLogin ? (
+          <section className="bg-gray-50 dark:bg-gray-900 py-10">
+            <div className="max-w-5xl mx-auto px-4">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-md p-6 flex flex-col sm:flex-row items-center gap-6">
+                {/* PROFILE PIC */}
+                <img
+                  src={user?.profilepic}
+                  className="w-24 h-24 rounded-full object-cover border-2 border-indigo-500"
+                />
 
-              {/* INFO */}
-              <div className="flex-1 text-center sm:text-left space-y-2">
-                <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
-                  {user?.name}
-                </h2>
+                {/* INFO */}
+                <div className="flex-1 text-center sm:text-left space-y-2">
+                  <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+                    {user?.name}
+                  </h2>
 
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {user?.bio || "No bio available"}
-                </p>
-
-                {/* DETAILS */}
-                <div className="text-sm text-gray-500 dark:text-gray-400 space-y-1">
-                  <p>📧 {user?.email}</p>
-                  <p>
-                    📞 {user?.phoneno ? user?.phoneno : "Unavailable or Hidden"}
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    {user?.bio || "No bio available"}
                   </p>
-                </div>
-              </div>
 
-              {/* ACTION BUTTON */}
-              <NavLink to="/updateprofile">
-                <button className="px-5 py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition">
-                  Edit Profile
-                </button>
-              </NavLink>
+                  {/* DETAILS */}
+                  <div className="text-sm text-gray-500 dark:text-gray-400 space-y-1">
+                    <p>📧 {user?.email}</p>
+                    <p>
+                      📞{" "}
+                      {user?.phoneno ? user?.phoneno : "Unavailable or Hidden"}
+                    </p>
+                  </div>
+                </div>
+
+                {/* ACTION BUTTON */}
+                <NavLink to="/updateprofile">
+                  <button className="px-5 py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition">
+                    Edit Profile
+                  </button>
+                </NavLink>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        ) : (
+          <NoProfile />
+        )}
 
         {/* POSTS SECTION */}
         <section className="bg-gray-50 dark:bg-gray-900 py-8">
