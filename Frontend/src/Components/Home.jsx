@@ -8,6 +8,7 @@ import MyPosts from "./Render Components/MyPosts";
 import { errorEmitter, successEmitter } from "../emitter";
 import NoPost from "./NoPost";
 import { useLoader } from "../Contexts/LoaderState";
+import { CircleArrowUp } from "lucide-react";
 
 function Home() {
   let {
@@ -53,7 +54,10 @@ function Home() {
     <>
       {allPosts?.length > 0 ? (
         <section className="py-8 sm:py-12 bg-gray-50 dark:bg-gray-800 min-h-screen">
-          <div className="max-w-7xl mx-auto px-4 space-y-10">
+          <div
+            id="topSect"
+            className="max-w-7xl mx-auto px-4 space-y-10 relative"
+          >
             {/* HEADER */}
             <div className="text-center space-y-2">
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-gray-100">
@@ -101,6 +105,16 @@ function Home() {
               >
                 Next
               </button>
+            </div>
+            <div
+              style={{ position: "fixed", bottom: "2%", right: "2%" }}
+              onClick={() => {
+                document
+                  .querySelector("#topSect")
+                  .scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              <CircleArrowUp />
             </div>
           </div>
         </section>
