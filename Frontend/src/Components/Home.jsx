@@ -107,7 +107,7 @@ function Home() {
               </button>
             </div>
             <div
-              className="dark:bg-indigo-600 dark:text-white"
+              className="dark:bg-indigo-600 dark:text-white rounded-full"
               style={{ position: "fixed", bottom: "5%", right: "4%" }}
               onClick={() => {
                 document
