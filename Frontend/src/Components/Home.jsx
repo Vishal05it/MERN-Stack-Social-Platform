@@ -108,11 +108,11 @@ function Home() {
             </div>
             <div
               className=" dark:text-white"
+              size={20}
               style={{
                 position: "fixed",
                 bottom: "5%",
                 right: "4%",
-                fontSize: "30px",
                 cursor: "pointer",
               }}
               onClick={() => {
