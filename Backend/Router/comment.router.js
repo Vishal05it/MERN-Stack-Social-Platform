@@ -93,11 +93,13 @@ commentRouter.put("/editcomment/:postId/:commentId", verifyUserToken, async (req
             })
             return;
         }
-        let { content, canedit } = req.body;
+        let { content, canedit, addedMs } = req.body;
         if (content) {
             comment.content = content;
         }
-
+        if (addedMs) {
+            comment.addedMs = addedMs;
+        }
         let editedComment = await comment.save();
         res.status(200).send({
             message: "Comment edited successfully",

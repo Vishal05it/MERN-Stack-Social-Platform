@@ -237,8 +237,12 @@ messageRouter.put("/editmessage/:messageId", verifyUserToken, async (req, res) =
             return;
         }
         if (message.canedit) {
-            let { newMessage } = req.body;
+            let { newMessage, addedMs } = req.body;
             message.message = newMessage;
+            if (addedMs) {
+                message.addedMs = addedMs;
+            }
+            message.addedMs = addedMs;
             let editedMessage = await message.save();
             res.status(200).send({
                 message: "Message edited successfully!",
@@ -306,7 +310,7 @@ messageRouter.delete("/deletechat/:messageby/:messageto", verifyUserToken, async
             res.status(200).send({
                 message: "Chat deleted successfully!",
                 success: true,
-                deletedMsgs,
+
                 deletedConvo: deletedConvo1
             });
             return;
@@ -315,7 +319,7 @@ messageRouter.delete("/deletechat/:messageby/:messageto", verifyUserToken, async
             res.status(200).send({
                 message: "Chat deleted successfully!",
                 success: true,
-                deletedMsgs,
+
                 deletedConvo: deletedConvo2
             });
             return;

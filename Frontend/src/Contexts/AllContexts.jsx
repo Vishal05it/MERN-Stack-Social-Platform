@@ -293,6 +293,7 @@ function AllContexts({ children }) {
           body: JSON.stringify({
             content,
             author: user?.name,
+            addedMs: Date.now(),
           }),
         },
       );
@@ -773,6 +774,7 @@ function AllContexts({ children }) {
             },
             body: JSON.stringify({
               newMessage,
+              addedMs: Date.now(),
             }),
           },
         );

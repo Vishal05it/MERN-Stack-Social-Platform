@@ -54,6 +54,7 @@ function EditPost() {
             title: post.title,
             description: post.description,
             postImage: post.postImage,
+            addedMs: Date.now(),
           }),
         },
       );

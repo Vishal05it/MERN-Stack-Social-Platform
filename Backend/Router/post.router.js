@@ -94,7 +94,7 @@ postRouter.post("/addpost", verifyToken, async (req, res) => {
 })
 postRouter.put("/updatepost/:postId", verifyPostToken, async (req, res) => {
     try {
-        let { title, description, isPrivate, postImage } = req.body;
+        let { title, description, isPrivate, postImage, addedMs } = req.body;
         let post = await postModel.findById(req.postId);
         console.log(post);
         if (title) {
@@ -109,6 +109,9 @@ postRouter.put("/updatepost/:postId", verifyPostToken, async (req, res) => {
         }
         if (postImage) {
             post.postImage = postImage;
+        }
+        if (addedMs) {
+            post.addedMs = addedMs;
         }
         let updatePost = await post.save();
         console.log(updatePost);
