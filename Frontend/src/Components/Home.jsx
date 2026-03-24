@@ -108,7 +108,7 @@ function Home() {
             </div>
             <div
               className="dark:bg-indigo-600 dark:text-white"
-              style={{ position: "fixed", bottom: "2%", right: "2%" }}
+              style={{ position: "fixed", bottom: "5%", right: "4%" }}
               onClick={() => {
                 document
                   .querySelector("#topSect")
