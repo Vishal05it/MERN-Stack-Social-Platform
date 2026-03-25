@@ -89,7 +89,7 @@ function AllContexts({ children }) {
   };
   let getAllPostsHome = async (page) => {
     try {
-      // setShowLoader(true);
+      setShowLoader(true);
       let response = await fetch(
         `${baseURL}/posts/api/getallposts?page=${page}&items=${8}`,
       );
@@ -98,7 +98,7 @@ function AllContexts({ children }) {
     } catch (error) {
       console.log(error);
     } finally {
-      // setShowLoader(false);
+      setShowLoader(false);
     }
   };
   let getAllPosts = async (page) => {
