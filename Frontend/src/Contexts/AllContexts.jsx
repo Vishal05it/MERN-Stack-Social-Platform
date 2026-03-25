@@ -95,10 +95,10 @@ function AllContexts({ children }) {
       );
       let data = await response.json();
       setAllPosts(data.posts);
+      setShowLoader(false);
     } catch (error) {
       console.log(error);
     } finally {
-      setShowLoader(false);
     }
   };
   let getAllPosts = async (page) => {
