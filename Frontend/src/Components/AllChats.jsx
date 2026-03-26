@@ -42,7 +42,7 @@ function AllChats() {
           };
         }),
       );
-      console.log(tempChatData);
+      //console.log(tempChatData);
       setAllChatData(tempChatData);
     };
     fetchChatData();

@@ -504,10 +504,10 @@ function AllContexts({ children }) {
     }
   };
   let getNotifications = async () => {
-    if (user) {
+    if (localStorage.getItem("user")._id) {
       try {
         let response = await fetch(
-          `${baseURL}/notification/api/gettotalnotifications/${user?._id}`,
+          `${baseURL}/notification/api/gettotalnotifications/${localStorage.getItem("user")._id}`,
           {
             method: "GET",
             headers: {
@@ -563,10 +563,10 @@ function AllContexts({ children }) {
     }
   };
   let getNotificationsCount = async () => {
-    if (user) {
+    if (localStorage.getItem("user")._id) {
       try {
         let response = await fetch(
-          `${baseURL}/notification/api/countnotifications/${user?._id}`,
+          `${baseURL}/notification/api/countnotifications/${localStorage.getItem("user")._id}`,
           {
             method: "GET",
             headers: {
