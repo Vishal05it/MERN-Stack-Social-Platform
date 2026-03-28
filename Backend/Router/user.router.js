@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const upload = require("../Middlewares/multer.middleware");
 const { uploadOnCloudinary } = require("../utils/cloudinary");
 let userModel = require("../Schema/user.model");
+let postModel = require("../Schema/post.model");
 const AuthUSer = require("../Middlewares/verifyUserToken.middleware");
 const transport = require("../mailer");
 userRouter.post("/signup", upload.single("profilepic"), async (req, res) => {
@@ -212,7 +213,8 @@ userRouter.put("/updateprofile", AuthUSer, upload.single("profilepic"), async (r
             success: true,
             status: 200,
             updatedUser
-        })
+        });
+        let allPosts = await postModel.updateMany({ createdBy: user._id }, { author: user.name, authorimage: user.profilepic });
     } catch (error) {
         console.log(error);
         // let errorMsg = Object.values(error.errors)[0].properties.message ? Object.values(error.errors)[0].properties.message : null

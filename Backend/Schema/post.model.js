@@ -35,7 +35,6 @@ const postSchema = mongoose.Schema({
         type: String,
         default: "https://www.imanami.com/wp-content/uploads/2016/03/unknown-user.jpg"
     },
-
     postImage: {
         type: String,
         default: "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A="
