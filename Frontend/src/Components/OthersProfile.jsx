@@ -27,13 +27,13 @@ function OthersProfile() {
   }, []);
   let getUser = async () => {
     try {
-      setShowLoader(true);
+      // setShowLoader(true);
       let response = await fetch(`${baseURL}/user/api/getuser/${param.userId}`);
       let data = await response.json();
       setUserFound(data.user);
       setIsUser(true);
       //console.log(data.user);
-      setShowLoader(false);
+      // setShowLoader(false);
     } catch (error) {
       console.log(error);
     } finally {
