@@ -6,7 +6,7 @@ import { useAllContexts } from "../Contexts/AllContexts";
 function Signup() {
   let navigate = useNavigate();
   let { setShowLoader } = useLoader();
-  let { setIsHome, setShowFooter } = useAllContexts();
+  let { setIsHome, setShowFooter, isLogin } = useAllContexts();
   useEffect(() => {
     setIsHome(false);
   }, []);
@@ -32,56 +32,58 @@ function Signup() {
     setShowFooter(true);
   }, []);
   let signUpFunction = async () => {
-    try {
-      let formData = new FormData();
-      formData.append("name", user.name);
-      formData.append("email", user.email);
-      formData.append("password", user.password);
-      formData.append("city", user.city);
-      formData.append("zipcode", user.zipcode);
-      formData.append("state", user.state);
-      formData.append("gender", user.gender);
-      formData.append("phoneno", user.phoneno);
-      formData.append("bio", user.bio);
-      formData.append("age", user.age);
-      formData.append("profilepic", user.profilepic);
-      if (user.password.length < 8) {
-        errorEmitter("Password must be at least 8 characters long");
-        return;
-      }
-      if (user.name.length < 2 || !user.email) {
-        errorEmitter("Name and Email are required!");
-        return;
-      }
-      setShowLoader(true);
-      let sendData = await fetch(`http://localhost:5000/user/api/signup`, {
-        method: "POST",
-        body: formData,
-      });
-      let response = await sendData.json();
-      //console.log(response.userCreated);
-      if (response.success) {
-        setUser({
-          password: "",
-          city: "",
-          zipcode: "",
-          state: "",
-          name: "",
-          bio: "",
-          age: 0,
-          gender: "",
-          phoneno: "",
-          profilepic: "",
-          email: "",
+    if (!isLogin) {
+      try {
+        let formData = new FormData();
+        formData.append("name", user.name);
+        formData.append("email", user.email);
+        formData.append("password", user.password);
+        formData.append("city", user.city);
+        formData.append("zipcode", user.zipcode);
+        formData.append("state", user.state);
+        formData.append("gender", user.gender);
+        formData.append("phoneno", user.phoneno);
+        formData.append("bio", user.bio);
+        formData.append("age", user.age);
+        formData.append("profilepic", user.profilepic);
+        if (user.password.length < 8) {
+          errorEmitter("Password must be at least 8 characters long");
+          return;
+        }
+        if (user.name.length < 2 || !user.email) {
+          errorEmitter("Name and Email are required!");
+          return;
+        }
+        setShowLoader(true);
+        let sendData = await fetch(`http://localhost:5000/user/api/signup`, {
+          method: "POST",
+          body: formData,
         });
-        successEmitter(response.message);
-        navigate("/login");
-      } else errorEmitter(response.message);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setShowLoader(false);
-    }
+        let response = await sendData.json();
+        //console.log(response.userCreated);
+        if (response.success) {
+          setUser({
+            password: "",
+            city: "",
+            zipcode: "",
+            state: "",
+            name: "",
+            bio: "",
+            age: 0,
+            gender: "",
+            phoneno: "",
+            profilepic: "",
+            email: "",
+          });
+          successEmitter(response.message);
+          navigate("/login");
+        } else errorEmitter(response.message);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setShowLoader(false);
+      }
+    } else errorEmitter("Log out first to create a new account!");
   };
   return (
     <section className="min-h-screen flex items-center justify-center py-10 bg-gray-50 dark:bg-gray-900 px-3 sm:px-4">

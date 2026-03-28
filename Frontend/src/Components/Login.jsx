@@ -29,34 +29,36 @@ function Login() {
     setIsHome(false);
   }, []);
   let loginFunc = async () => {
-    try {
-      setShowLoader(true);
-      let response = await fetch(`${baseURL}/user/api/login`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(currUser),
-      });
-      let dataPosted = await response.json();
-      // console.log(dataPosted);
-      if (dataPosted.success) {
-        successEmitter(dataPosted.message);
-        localStorage.setItem("userToken", dataPosted.token);
-        localStorage.setItem("isLogin", true);
-        setIsLogin(true);
-        setUser(dataPosted.userExist);
-        localStorage.setItem("user", JSON.stringify(dataPosted.userExist));
-        // console.log("User found : ", user);
-        navigate("/");
-      } else {
-        errorEmitter(dataPosted.message);
+    if (!isLogin) {
+      try {
+        setShowLoader(true);
+        let response = await fetch(`${baseURL}/user/api/login`, {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(currUser),
+        });
+        let dataPosted = await response.json();
+        // console.log(dataPosted);
+        if (dataPosted.success) {
+          successEmitter(dataPosted.message);
+          localStorage.setItem("userToken", dataPosted.token);
+          localStorage.setItem("isLogin", true);
+          setIsLogin(true);
+          setUser(dataPosted.userExist);
+          localStorage.setItem("user", JSON.stringify(dataPosted.userExist));
+          // console.log("User found : ", user);
+          navigate("/");
+        } else {
+          errorEmitter(dataPosted.message);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setShowLoader(false);
       }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setShowLoader(false);
-    }
+    } else errorEmitter("Log out first for logging into another account!");
   };
 
   return (
