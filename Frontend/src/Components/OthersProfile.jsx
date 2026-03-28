@@ -7,6 +7,7 @@ import { useLoader } from "../Contexts/LoaderState";
 import { Send } from "lucide-react";
 import Blog from "./Render Components/Blog";
 import NoPost from "./NoPost";
+import NoProfile from "./NoProfile";
 function OthersProfile() {
   let param = useParams();
   let {
@@ -50,79 +51,87 @@ function OthersProfile() {
     <>
       <>
         {/* PROFILE HEADER */}
-        <section className="bg-gray-50 dark:bg-gray-900 py-10">
-          <div className="max-w-5xl mx-auto px-4">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-md p-6 flex flex-col sm:flex-row items-center gap-6">
-              {/* PROFILE PIC */}
-              <img
-                src={userFound?.profilepic}
-                className="w-24 h-24 rounded-full object-cover border-2 border-indigo-500"
-              />
+        {userFound ? (
+          <section className="bg-gray-50 dark:bg-gray-900 py-10">
+            <div className="max-w-5xl mx-auto px-4">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-md p-6 flex flex-col sm:flex-row items-center gap-6">
+                {/* PROFILE PIC */}
+                <img
+                  src={userFound?.profilepic}
+                  className="w-24 h-24 rounded-full object-cover border-2 border-indigo-500"
+                />
 
-              {/* INFO */}
-              <div className="flex-1 text-center sm:text-left space-y-2">
-                <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
-                  {userFound?.name}
-                </h2>
+                {/* INFO */}
+                <div className="flex-1 text-center sm:text-left space-y-2">
+                  <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+                    {userFound?.name}
+                  </h2>
 
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {userFound?.bio || "No bio available"}
-                </p>
-
-                {/* DETAILS */}
-                <div className="text-sm text-gray-500 dark:text-gray-400 space-y-1">
-                  <p>📧 {userFound?.email}</p>
-                  <p>
-                    📞{" "}
-                    {userFound?.phoneno
-                      ? userFound?.phoneno
-                      : "Unavailable or Hidden"}
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    {userFound?.bio || "No bio available"}
                   </p>
-                </div>
-              </div>
 
-              {/* MESSAGE BUTTON */}
-              <NavLink to={`/messages/${param.userId}`}>
-                <button className="px-5 py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition">
-                  Message
-                </button>
-              </NavLink>
+                  {/* DETAILS */}
+                  <div className="text-sm text-gray-500 dark:text-gray-400 space-y-1">
+                    <p>📧 {userFound?.email}</p>
+                    <p>
+                      📞{" "}
+                      {userFound?.phoneno
+                        ? userFound?.phoneno
+                        : "Unavailable or Hidden"}
+                    </p>
+                  </div>
+                </div>
+
+                {/* MESSAGE BUTTON */}
+                <NavLink to={`/messages/${param.userId}`}>
+                  <button className="px-5 py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition">
+                    Message
+                  </button>
+                </NavLink>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        ) : (
+          <NoProfile />
+        )}
 
         {/* POSTS SECTION */}
-        <section className="bg-gray-50 dark:bg-gray-900 py-8">
-          <div className="max-w-7xl mx-auto px-4 space-y-6">
-            {/* HEADER */}
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
-              Posts by {userFound?.name}
-            </h3>
+        {userFound ? (
+          <section className="bg-gray-50 dark:bg-gray-900 py-8">
+            <div className="max-w-7xl mx-auto px-4 space-y-6">
+              {/* HEADER */}
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
+                Posts by {userFound?.name}
+              </h3>
 
-            {/* POSTS GRID */}
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {allPosts.length > 0 ? (
-                allPosts.map((elm, idx) => (
-                  <Blog
-                    key={idx}
-                    likes={elm.like}
-                    comments={elm.comments}
-                    author={elm.author}
-                    authorDP={elm.authorimage}
-                    title={elm.title}
-                    description={elm.description}
-                    blogImg={elm.postImage}
-                    postId={elm._id}
-                    userId={user._id}
-                    createdBy={elm.createdBy}
-                  />
-                ))
-              ) : (
-                <NoPost />
-              )}
+              {/* POSTS GRID */}
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {allPosts.length > 0 ? (
+                  allPosts.map((elm, idx) => (
+                    <Blog
+                      key={idx}
+                      likes={elm.like}
+                      comments={elm.comments}
+                      author={elm.author}
+                      authorDP={elm.authorimage}
+                      title={elm.title}
+                      description={elm.description}
+                      blogImg={elm.postImage}
+                      postId={elm._id}
+                      userId={user._id}
+                      createdBy={elm.createdBy}
+                    />
+                  ))
+                ) : (
+                  <NoPost />
+                )}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        ) : (
+          ""
+        )}
       </>
     </>
   );
