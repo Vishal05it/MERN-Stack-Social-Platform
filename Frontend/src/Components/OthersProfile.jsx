@@ -24,6 +24,7 @@ function OthersProfile() {
   let { setShowLoader } = useLoader();
   useEffect(() => {
     setShowFooter(true);
+    setIsUser(false);
   }, []);
   let getUser = async () => {
     try {
@@ -31,6 +32,7 @@ function OthersProfile() {
       let response = await fetch(`${baseURL}/user/api/getuser/${param.userId}`);
       let data = await response.json();
       setUserFound(data.user);
+      setIsUser(true);
       //console.log(data.user);
     } catch (error) {
       console.log(error);
