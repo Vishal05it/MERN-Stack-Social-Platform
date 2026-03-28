@@ -5,19 +5,23 @@ cloudinary.config({
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_SECRET_KEY
 });
-const uploadOnCloudinary = async (localFilePath) => {
+const uploadOnCloudinary = async (fileBuffer) => {
     try {
-        if (!localFilePath) return null;
-        // Upload the file on Cloudinary
-        const response = await cloudinary.uploader
-            .upload(localFilePath, {
-                resource_type: "auto"
-            });
-        return response.url;
+        if (!fileBuffer) return null;
+
+        return new Promise((resolve, reject) => {
+            cloudinary.uploader.upload_stream(
+                { resource_type: "auto" },
+                (error, result) => {
+                    if (error) reject(error);
+                    else resolve(result.secure_url);
+                }
+            ).end(fileBuffer);
+        });
+
     } catch (error) {
         console.log(error);
-        fs.unlinkSync(localFilePath); // Remove the saved file on local server, upload failed
         return null;
     }
-}
+};
 export { uploadOnCloudinary }
