@@ -78,7 +78,7 @@ postRouter.post("/addpost", verifyToken, upload.single("postImage"), async (req,
         let { title, description, isPrivate, author, authorimage, addedMs } = req.body;
         let postImage;
         if (req.file) {
-            let localFilePath = req.file?.path;
+            let localFilePath = req.file?.buffer;
             let uploadResponse = await uploadOnCloudinary(localFilePath);
             postImage = uploadResponse;
         }

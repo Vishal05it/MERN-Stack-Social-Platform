@@ -1,6 +1,6 @@
 const multer = require("multer");
 const path = require("path");
-const storage = multer.diskStorage({ // Disk storage means using server storage
+const storage = multer.memoryStorage({ // Disk storage means using server storage
     destination: function (req, file, cb) {
         cb(null, path.join(__dirname, "../Uploads")); // Destination to save files
     },
