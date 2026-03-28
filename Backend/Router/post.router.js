@@ -76,9 +76,12 @@ postRouter.get("/getmyposts/:userId", async (req, res) => {
 postRouter.post("/addpost", verifyToken, upload.single("postImage"), async (req, res) => {
     try {
         let { title, description, isPrivate, author, authorimage, addedMs } = req.body;
-        let localFilePath = req.file?.path;
-        let uploadResponse = await uploadOnCloudinary(localFilePath);
-        let postImage = uploadResponse;
+        let postImage;
+        if (req.file) {
+            let localFilePath = req.file?.path;
+            let uploadResponse = await uploadOnCloudinary(localFilePath);
+            postImage = uploadResponse;
+        }
         let newPost = {};
         newPost.title = title;
         newPost.description = description;
@@ -111,9 +114,12 @@ postRouter.put("/updatepost/:postId", verifyPostToken, upload.single("postImage"
     try {
         let { title, description, isPrivate, addedMs } = req.body;
         let post = await postModel.findById(req.postId);
-        let localFilePath = req.file?.path;
-        let uploadResponse = await uploadOnCloudinary(localFilePath);
-        let postImage = uploadResponse;
+        let postImage;
+        if (req.file) {
+            let localFilePath = req.file?.path;
+            let uploadResponse = await uploadOnCloudinary(localFilePath);
+            postImage = uploadResponse;
+        }
         console.log(post);
         if (title) {
             post.title = title;
