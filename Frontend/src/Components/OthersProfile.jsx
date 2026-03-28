@@ -41,10 +41,13 @@ function OthersProfile() {
   useEffect(() => {
     setIsHome(false);
     if (!isUser) {
-      getUser();
-      getAllUserPosts(param.userId);
-      //console.log("Running Once!");
-      setIsUser(true);
+      let loadOthers = async () => {
+        await getUser();
+        await getAllUserPosts(param.userId);
+        //console.log("Running Once!");
+        setIsUser(true);
+      };
+      loadOthers();
     }
   }, [param.userId]);
   return (
