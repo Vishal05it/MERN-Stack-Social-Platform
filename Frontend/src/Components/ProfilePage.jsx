@@ -80,37 +80,39 @@ function ProfilePage() {
         )}
 
         {/* POSTS SECTION */}
-        <section className="bg-gray-50 dark:bg-gray-900 py-8">
-          <div className="max-w-7xl mx-auto px-4 space-y-6">
-            {/* HEADER */}
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
-              Your Posts
-            </h3>
+        {isLogin && (
+          <section className="bg-gray-50 dark:bg-gray-900 py-8">
+            <div className="max-w-7xl mx-auto px-4 space-y-6">
+              {/* HEADER */}
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
+                Your Posts
+              </h3>
 
-            {/* POSTS GRID */}
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {allPosts.length > 0 ? (
-                allPosts.map((elm, idx) => (
-                  <Blog
-                    key={idx}
-                    likes={elm.like}
-                    comments={elm.comments}
-                    author={elm.author}
-                    authorDP={elm.authorimage}
-                    title={elm.title}
-                    description={elm.description}
-                    blogImg={elm.postImage}
-                    postId={elm._id}
-                    userId={user._id}
-                    createdBy={elm.createdBy}
-                  />
-                ))
-              ) : (
-                <NoPost />
-              )}
+              {/* POSTS GRID */}
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {allPosts.length > 0 ? (
+                  allPosts.map((elm, idx) => (
+                    <Blog
+                      key={idx}
+                      likes={elm.like}
+                      comments={elm.comments}
+                      author={elm.author}
+                      authorDP={elm.authorimage}
+                      title={elm.title}
+                      description={elm.description}
+                      blogImg={elm.postImage}
+                      postId={elm._id}
+                      userId={user._id}
+                      createdBy={elm.createdBy}
+                    />
+                  ))
+                ) : (
+                  <NoPost />
+                )}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </>
     </>
   );
