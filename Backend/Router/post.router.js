@@ -79,7 +79,18 @@ postRouter.post("/addpost", verifyToken, upload.single("postImage"), async (req,
         let localFilePath = req.file?.path;
         let uploadResponse = await uploadOnCloudinary(localFilePath);
         let postImage = uploadResponse;
-        let addPost = await postModel.create({ title, description, isPrivate, author, postImage, createdBy: req.userId, authorimage, addedMs });
+        let newPost = {};
+        newPost.title = title;
+        newPost.description = description;
+        newPost.isPrivate = isPrivate;
+        newPost.author = author;
+        newPost.authorimage = authorimage;
+        newPost.addedMs = addedMs;
+        newPost.createdBy = req.userId;
+        if (postImage) {
+            newPost.postImage = postImage;
+        }
+        let addPost = await postModel.create(newPost);
         res.status(200).send({
             message: "Post added successfully",
             success: true,
