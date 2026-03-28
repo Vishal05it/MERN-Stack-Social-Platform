@@ -48,7 +48,7 @@ userRouter.post("/signup", upload.single("profilepic"), async (req, res) => {
         if (bio) {
             newUser.bio = bio;
         }
-        let localFilePath = req.file?.path;
+        let localFilePath = req.file?.buffer;
         let profilepic = await uploadOnCloudinary(localFilePath);
         if (profilepic) {
             newUser.profilepic = profilepic;
@@ -196,7 +196,7 @@ userRouter.put("/updateprofile", AuthUSer, upload.single("profilepic"), async (r
     try {
         let { name, age, gender, city, phoneno, state, zipcode, bio } = req.body
         let user = await userModel.findById(req.userId);
-        let localFilePath = req.file?.path;
+        let localFilePath = req.file?.buffer;
         let profilepic = await uploadOnCloudinary(localFilePath);
         if (name) user.name = name;
         if (age) user.age = age;
