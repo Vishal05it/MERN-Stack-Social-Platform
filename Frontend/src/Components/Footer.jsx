@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAllContexts } from "../Contexts/AllContexts";
 function Footer() {
-  let { user } = useAllContexts();
+  let { user, isLogin } = useAllContexts();
   return (
     <>
       <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 mt-0.5">
@@ -42,7 +42,11 @@ function Footer() {
                 <NavLink to="/allchats">Chats</NavLink>{" "}
               </li>
               <li className="hover:text-indigo-600 cursor-pointer">
-                <NavLink to={`/profilepage/${user?._id}`}> Profile</NavLink>
+                <NavLink
+                  to={isLogin ? `/profilepage/${user?._id}` : "/noprofile"}
+                >
+                  Profile
+                </NavLink>
               </li>
             </ul>
           </div>
