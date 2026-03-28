@@ -24,7 +24,6 @@ function OthersProfile() {
   let { setShowLoader } = useLoader();
   useEffect(() => {
     setShowFooter(true);
-    setIsUser(false);
   }, []);
   let getUser = async () => {
     try {
@@ -42,16 +41,15 @@ function OthersProfile() {
   };
   useEffect(() => {
     setIsHome(false);
-    if (!isUser) {
-      let loadOthers = async () => {
-        await getUser();
-        await getAllUserPosts(param.userId);
-        //console.log("Running Once!");
-        // setIsUser(true);
-      };
-      loadOthers();
-    }
-  }, [param.userId, isUser]);
+
+    let loadOthers = async () => {
+      await getUser();
+      await getAllUserPosts(param.userId);
+      //console.log("Running Once!");
+      // setIsUser(true);
+    };
+    loadOthers();
+  }, [param.userId]);
   return (
     <>
       <>
