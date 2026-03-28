@@ -1,7 +1,8 @@
 const express = require("express");
 const postModel = require("../Schema/post.model")
 const postRouter = express.Router();
-
+const upload = require("../Middlewares/multer.middleware");
+const { uploadOnCloudinary } = require("../utils/cloudinary");
 const verifyToken = require("../Middlewares/verifyUserToken.middleware");
 const verifyPostToken = require("../Middlewares/verifyPostToken.middleware");
 const likeCommentsToken = require("../Middlewares/likePost.middleware");
@@ -11,7 +12,7 @@ const notificationsModel = require("../Schema/notifications.model");
 postRouter.get("/getallposts", async (req, res) => {
     try {
         let { page = 1, items = 8 } = req.query;
-        let totalDocs = await postModel.countDocuments();
+        let totalDocs = await postModel.countDocuments({});
         let totalPages = Math.ceil(totalDocs / items);
         if (page <= 0 || page > totalPages) {
             res.status(404).send({
@@ -72,9 +73,12 @@ postRouter.get("/getmyposts/:userId", async (req, res) => {
         })
     }
 })
-postRouter.post("/addpost", verifyToken, async (req, res) => {
+postRouter.post("/addpost", verifyToken, upload.single("postImage"), async (req, res) => {
     try {
-        let { title, description, isPrivate, author, postImage, authorimage, addedMs } = req.body;
+        let { title, description, isPrivate, author, authorimage, addedMs } = req.body;
+        let localFilePath = req.file?.path;
+        let uploadResponse = await uploadOnCloudinary(localFilePath);
+        let postImage = uploadResponse;
         let addPost = await postModel.create({ title, description, isPrivate, author, postImage, createdBy: req.userId, authorimage, addedMs });
         res.status(200).send({
             message: "Post added successfully",
@@ -92,10 +96,13 @@ postRouter.post("/addpost", verifyToken, async (req, res) => {
         })
     }
 })
-postRouter.put("/updatepost/:postId", verifyPostToken, async (req, res) => {
+postRouter.put("/updatepost/:postId", verifyPostToken, upload.single("postImage"), async (req, res) => {
     try {
-        let { title, description, isPrivate, postImage, addedMs } = req.body;
+        let { title, description, isPrivate, addedMs } = req.body;
         let post = await postModel.findById(req.postId);
+        let localFilePath = req.file?.path;
+        let uploadResponse = await uploadOnCloudinary(localFilePath);
+        let postImage = uploadResponse;
         console.log(post);
         if (title) {
             post.title = title;

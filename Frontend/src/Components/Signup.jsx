@@ -18,7 +18,7 @@ function Signup() {
     zipcode: "",
     state: "",
     gender: "",
-    phone: "",
+    phoneno: "",
     bio: "",
     age: 0,
     profilepic: "",
@@ -33,6 +33,18 @@ function Signup() {
   }, []);
   let signUpFunction = async () => {
     try {
+      let formData = new FormData();
+      formData.append("name", user.name);
+      formData.append("email", user.email);
+      formData.append("password", user.password);
+      formData.append("city", user.city);
+      formData.append("zipcode", user.zipcode);
+      formData.append("state", user.state);
+      formData.append("gender", user.gender);
+      formData.append("phoneno", user.phoneno);
+      formData.append("bio", user.bio);
+      formData.append("age", user.age);
+      formData.append("profilepic", user.profilepic);
       if (user.password.length < 8) {
         errorEmitter("Password must be at least 8 characters long");
         return;
@@ -44,22 +56,7 @@ function Signup() {
       setShowLoader(true);
       let sendData = await fetch(`http://localhost:5000/user/api/signup`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: user.name,
-          email: user.email,
-          password: user.password,
-          city: user.city,
-          zipcode: user.zipcode,
-          state: user.state,
-          gender: user.gender,
-          phone: user.phone,
-          bio: user.bio,
-          age: user.age,
-          profilepic: user.profilepic,
-        }),
+        body: formData,
       });
       let response = await sendData.json();
       //console.log(response.userCreated);
@@ -73,7 +70,7 @@ function Signup() {
           bio: "",
           age: 0,
           gender: "",
-          phone: "",
+          phoneno: "",
           profilepic: "",
           email: "",
         });
@@ -175,8 +172,8 @@ function Signup() {
 
           <input
             type="text"
-            name="phone"
-            value={user.phone}
+            name="phoneno"
+            value={user.phoneno}
             onChange={onChangeFunc}
             placeholder="Phone"
             className="input"
@@ -203,10 +200,12 @@ function Signup() {
           />
 
           <input
-            type="text"
+            type="file"
             name="profilepic"
-            value={user.profilepic}
-            onChange={onChangeFunc}
+            onChange={(e) => {
+              let file = e.target.files[0];
+              setUser({ ...user, profilepic: file });
+            }}
             placeholder="Profile Image URL"
             className="input sm:col-span-2"
           />

@@ -2,12 +2,16 @@ const express = require("express");
 const userRouter = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const upload = require("../Middlewares/multer.middleware");
+const { uploadOnCloudinary } = require("../utils/cloudinary");
 let userModel = require("../Schema/user.model");
 const AuthUSer = require("../Middlewares/verifyUserToken.middleware");
 const transport = require("../mailer");
-userRouter.post("/signup", async (req, res) => {
+userRouter.post("/signup", upload.single("profilepic"), async (req, res) => {
     let user = req.body;
-    let { name, email, password } = req.body;
+    let { name, email, password, age, gender, phoneno, city, state, zipcode, bio } = req.body;
+    let newUser = {};
+
     let existingUSer = await userModel.findOne({ email });
     if (existingUSer) {
         return res.status(400).send({
@@ -16,11 +20,40 @@ userRouter.post("/signup", async (req, res) => {
             success: false
         })
     }
+    newUser.name = name;
+    newUser.email = email;
     try {
         let mySalt = await bcrypt.genSalt(10);
-        let hashPassword = await bcrypt.hash(password, mySalt)
-        let newUser = await userModel.create({ name, email, password: hashPassword });
-        let sendUser = await userModel.findById(newUser._id).select("-password");
+        let hashPassword = await bcrypt.hash(password, mySalt);
+        newUser.password = hashPassword;
+        if (age) {
+            newUser.age = age;
+        }
+        if (zipcode) {
+            newUser.zipcode = zipcode;
+        }
+        if (gender) {
+            newUser.gender = gender;
+        }
+        if (phoneno) {
+            newUser.phoneno = phoneno
+        }
+        if (city) {
+            newUser.city = city;
+        }
+        if (state) {
+            newUser.state = state;
+        }
+        if (bio) {
+            newUser.bio = bio;
+        }
+        let localFilePath = req.file?.path;
+        let profilepic = await uploadOnCloudinary(localFilePath);
+        if (profilepic) {
+            newUser.profilepic = profilepic;
+        }
+        let newUserNow = await userModel.create(newUser);
+        let sendUser = await userModel.findById(newUserNow._id).select("-password");
         res.status(200).send({
             message: "Sign up successfully",
             success: true,
@@ -158,10 +191,12 @@ userRouter.get("/getuser/:userId", async (req, res) => {
         })
     }
 })
-userRouter.put("/updateprofile", AuthUSer, async (req, res) => {
+userRouter.put("/updateprofile", AuthUSer, upload.single("profilepic"), async (req, res) => {
     try {
-        let { name, age, gender, city, phoneno, state, zipcode, bio, profilepic } = req.body
+        let { name, age, gender, city, phoneno, state, zipcode, bio } = req.body
         let user = await userModel.findById(req.userId);
+        let localFilePath = req.file?.path;
+        let profilepic = await uploadOnCloudinary(localFilePath);
         if (name) user.name = name;
         if (age) user.age = age;
         if (gender) user.gender = gender;

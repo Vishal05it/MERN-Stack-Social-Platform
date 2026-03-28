@@ -329,14 +329,25 @@ function AllContexts({ children }) {
 
   let updateProfile = async (userState) => {
     try {
+      let formData = new FormData();
+      formData.append("name", userState.name);
+      formData.append("email", userState.email);
+      formData.append("password", userState.password);
+      formData.append("city", userState.city);
+      formData.append("zipcode", userState.zipcode);
+      formData.append("state", userState.state);
+      formData.append("gender", userState.gender);
+      formData.append("phoneno", userState.phoneno);
+      formData.append("bio", userState.bio);
+      formData.append("age", userState.age);
+      formData.append("profilepic", userState.profilepic);
       setShowLoader(true);
       let response = await fetch(`${baseURL}/user/api/updateprofile`, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
           userToken,
         },
-        body: JSON.stringify(userState),
+        body: formData,
       });
       let data = await response.json();
       if (data.success) {

@@ -159,21 +159,6 @@ function UpdateProfile() {
                 className="w-full mt-1 px-4 py-2 rounded-xl bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
               />
             </div>
-
-            {/* PROFILE URL */}
-            <div className="sm:col-span-2">
-              <label className="text-sm text-gray-600 dark:text-gray-300">
-                Profile Image URL
-              </label>
-              <input
-                type="text"
-                name="profilepic"
-                value={userState?.profilepic}
-                onChange={onChangeFunc}
-                className="w-full mt-1 px-4 py-2 rounded-xl bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
-              />
-            </div>
-
             {/* BIO */}
             <div className="sm:col-span-2">
               <label className="text-sm text-gray-600 dark:text-gray-300">
@@ -200,6 +185,10 @@ function UpdateProfile() {
 
             <input
               type="file"
+              onChange={(e) => {
+                let file = e.target.files[0];
+                setUserState({ ...userState, profilepic: file });
+              }}
               className="text-sm text-gray-500 dark:text-gray-400"
             />
           </div>

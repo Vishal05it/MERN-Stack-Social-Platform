@@ -23,21 +23,20 @@ function CreatePost() {
   }, []);
   let addPost = async () => {
     try {
+      let formData = new FormData();
+      formData.append("title", post.title);
+      formData.append("description", post.description);
+      formData.append("author", user?.name);
+      formData.append("createdBy", user?._id);
+      formData.append("postImage", post.postImage);
+      formData.append("authorimage", user?.profilepic);
+      formData.append("addedMs", Date.now());
       let response = await fetch(`${baseURL}/posts/api/addpost`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           userToken: localStorage.getItem("userToken"),
         },
-        body: JSON.stringify({
-          title: post.title,
-          description: post.description,
-          author: user?.name,
-          createdBy: user?._id,
-          postImage: post.postImage,
-          authorimage: user?.profilepic,
-          addedMs: Date.now(),
-        }),
+        body: formData,
       });
       let data = await response.json();
       successEmitter("Post added successfully!");
@@ -82,24 +81,6 @@ function CreatePost() {
               />
             </div>
 
-            {/* IMAGE URL */}
-            <div className="space-y-1">
-              <label className="text-sm text-gray-600 dark:text-gray-300">
-                Image URL
-              </label>
-              <input
-                type="text"
-                name="postImage"
-                value={post.postImage}
-                onChange={(e) => {
-                  onChangeFunc(e);
-                  setPostImg(e.target.value);
-                }}
-                placeholder="Paste image URL"
-                className="w-full px-4 py-2 rounded-xl bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              />
-            </div>
-
             {/* DESCRIPTION */}
             <div className="space-y-1">
               <label className="text-sm text-gray-600 dark:text-gray-300">
@@ -126,9 +107,10 @@ function CreatePost() {
             <input
               type="file"
               onChange={(e) => {
-                setPostImg(e.target.files);
+                const file = e.target.files[0];
+                setPost({ ...post, postImage: file });
+                setPostImg(URL.createObjectURL(file)); // preview
               }}
-              className="text-sm text-gray-500 dark:text-gray-400"
             />
 
             {/* BUTTON */}
