@@ -49,10 +49,10 @@ function OnePost() {
     console.log(param.postId);
     getOnePostShow();
     getAllComments();
-    console.log("User at OnePost", user);
-    console.log("Current ms : " + Date.now());
+    // console.log("User at OnePost", user);
+    // console.log("Current ms : " + Date.now());
     setTimeout(() => {
-      console.log("Now ms : " + Date.now());
+      // console.log("Now ms : " + Date.now());
     }, 60000);
   }, []);
   // useEffect(() => {

@@ -40,7 +40,9 @@ function CreatePost() {
         body: formData,
       });
       let data = await response.json();
-      successEmitter("Post added successfully!");
+      if (data.success) {
+        successEmitter(data.message);
+      } else errorEmitter(data.message);
       // console.log("Post Added : ", data);
       navigate("/");
     } catch (error) {
