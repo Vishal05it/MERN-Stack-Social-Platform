@@ -46,7 +46,7 @@ function OnePost() {
   };
   useEffect(() => {
     setIsHome(false);
-    console.log(param.postId);
+    //console.log(param.postId);
     getOnePostShow();
     getAllComments();
     // console.log("User at OnePost", user);
