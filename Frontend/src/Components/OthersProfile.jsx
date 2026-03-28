@@ -33,15 +33,14 @@ function OthersProfile() {
       setUserFound(data.user);
       setIsUser(true);
       //console.log(data.user);
+      setShowLoader(false);
     } catch (error) {
       console.log(error);
     } finally {
-      setShowLoader(false);
     }
   };
   useEffect(() => {
     setIsHome(false);
-
     let loadOthers = async () => {
       await getUser();
       await getAllUserPosts(param.userId);
