@@ -47,11 +47,11 @@ function OthersProfile() {
         await getUser();
         await getAllUserPosts(param.userId);
         //console.log("Running Once!");
-        setIsUser(true);
+        // setIsUser(true);
       };
       loadOthers();
     }
-  }, [param.userId]);
+  }, [param.userId, isUser]);
   return (
     <>
       <>
