@@ -3,6 +3,7 @@ import { useAllContexts } from "../Contexts/AllContexts";
 import { useNavigate, useParams } from "react-router-dom";
 import { baseURL } from "../../baseurl";
 import { errorEmitter, successEmitter } from "../emitter";
+import { useLoader } from "../Contexts/LoaderState";
 
 function EditPost() {
   let param = useParams();
@@ -10,6 +11,7 @@ function EditPost() {
   const navigate = useNavigate();
   let { user, currPost, setCurrPost, setIsHome, setShowFooter } =
     useAllContexts();
+  let { showLoader, setShowLoader } = useLoader();
   useEffect(() => {
     setShowFooter(true);
   }, []);
@@ -49,6 +51,7 @@ function EditPost() {
       formData.append("postImage", post.postImage);
 
       formData.append("addedMs", Date.now());
+      setShowLoader(true);
       let response = await fetch(
         `${baseURL}/posts/api/updatepost/${param.postId}`,
         {
@@ -66,6 +69,8 @@ function EditPost() {
     } catch (error) {
       errorEmitter("Error updating the Post");
       console.log(error);
+    } finally {
+      setShowLoader(false);
     }
   };
   return (

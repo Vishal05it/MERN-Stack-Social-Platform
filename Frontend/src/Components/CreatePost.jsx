@@ -31,6 +31,7 @@ function CreatePost() {
       formData.append("postImage", post.postImage);
       formData.append("authorimage", user?.profilepic);
       formData.append("addedMs", Date.now());
+      setShowLoader(true);
       let response = await fetch(`${baseURL}/posts/api/addpost`, {
         method: "POST",
         headers: {
@@ -45,6 +46,8 @@ function CreatePost() {
     } catch (error) {
       errorEmitter("Error adding the Post");
       console.log(error);
+    } finally {
+      setShowLoader(false);
     }
   };
   useEffect(() => {
