@@ -29,6 +29,7 @@ import SearchProfiles from "./Components/SearchProfiles.jsx";
 import AllChats from "./Components/AllChats.jsx";
 import ForgotPassword from "./Components/ForgotPassword.jsx";
 import NoProfile from "./Components/NoProfile.jsx";
+import Error from "./Components/Error.jsx";
 let myRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -51,6 +52,7 @@ let myRouter = createBrowserRouter(
       <Route path="/onepost/:postId" element={<OnePost />} />
       <Route path="/noprofile" element={<NoProfile />} />
       <Route path="/messages/:toUserId" element={<ChatSection />} />
+      <Route path="*" element={<Error />} />
       <Route path="/notifications" element={<NotificationsSection />} />
     </Route>,
   ),
