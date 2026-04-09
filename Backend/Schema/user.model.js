@@ -28,8 +28,7 @@ const userSchema = mongoose.Schema({
     },
     phoneno: {
         type: String,
-        minlength: [10, "Phone number must be 10 digits long"],
-        maxlength: [10, "Phone number must be only 10 digits long"]
+        maxlength: [13, "Phone number must be only 13 digits long"]
     },
     city: {
         type: String,
