@@ -3,6 +3,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import { errorEmitter, successEmitter } from "../emitter";
 import { useLoader } from "../Contexts/LoaderState";
 import { useAllContexts } from "../Contexts/AllContexts";
+import { baseURL } from "../../baseurl";
 function Signup() {
   let navigate = useNavigate();
   let { setShowLoader } = useLoader();
@@ -55,7 +56,7 @@ function Signup() {
           return;
         }
         setShowLoader(true);
-        let sendData = await fetch(`http://localhost:5000/user/api/signup`, {
+        let sendData = await fetch(`${baseURL}/user/api/signup`, {
           method: "POST",
           body: formData,
         });
